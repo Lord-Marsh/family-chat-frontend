@@ -2,7 +2,7 @@ import { extend } from 'umi-request';
 
 const request = extend({
 //   prefix: 'http://localhost:5000/api',
-  prefix: 'https://family-chat-backend-m58u.onrender.com',
+  prefix: 'https://family-chat-backend-m58u.onrender.com/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

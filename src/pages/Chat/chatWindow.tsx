@@ -55,7 +55,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ selectedUser }) => {
   useEffect(() => {
     if (!token) return;
 
-    const newSocket = io('http://localhost:5000', {
+    const newSocket = io('https://family-chat-backend-m58u.onrender.com', {
       query: { token },
       transports: ['websocket', 'polling'],
     });
