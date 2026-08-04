@@ -1,0 +1,37 @@
+.splits-page {
+  .filters-container {
+    padding: 8px;
+    margin-bottom: 20px;
+    
+    .ant-segmented {
+      background: transparent;
+      
+      .ant-segmented-item {
+        color: var(--text-secondary);
+        
+        &-selected {
+          background: var(--primary-color);
+          color: #000;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .splits-list {
+    .load-more-btn {
+      height: 48px;
+      margin-top: 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.1);
+      color: var(--text-primary);
+    }
+    
+    .empty-state {
+      padding: 40px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+  }
+}

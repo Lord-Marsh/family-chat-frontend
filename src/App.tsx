@@ -1,72 +1,43 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ConfigProvider } from 'antd';
-import Login from './pages/Login';
-import Chat from './pages/Chat';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ConfigProvider, theme } from 'antd';
 import { AuthProvider, useAuth } from './contexts/AutoContext';
+import BottomNav from './components/BottomNav';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import AddSplit from './pages/AddSplit';
+import Splits from './pages/Splits';
+import SplitDetail from './pages/SplitDetail';
+import Balances from './pages/Balances';
+import Logs from './pages/Logs';
+import './App.css';
 
-// Protected Route Component
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { currentUser, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh'
-      }}>
-        Loading...
-      </div>
-    );
-  }
-
-  return currentUser ? <>{children}</> : <Navigate to="/login" replace />;
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) return <Navigate to="/login" replace />;
+  return <>{children}</>;
 };
 
-// Public Route Component (redirects to chat if already logged in)
-const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { currentUser, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh'
-      }}>
-        Loading...
-      </div>
-    );
-  }
-
-  return currentUser ? <Navigate to="/chat" replace /> : <>{children}</>;
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuth();
+  return (
+    <div className="App">
+      {children}
+      {user && <BottomNav />}
+    </div>
+  );
 };
 
-const AppRoutes: React.FC = () => {
+const AppRoutes = () => {
   return (
     <Routes>
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/chat"
-        element={
-          <ProtectedRoute>
-            <Chat />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="/" element={<Navigate to="/chat" replace />} />
-      <Route path="*" element={<Navigate to="/chat" replace />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<ProtectedRoute><Layout><Dashboard /></Layout></ProtectedRoute>} />
+      <Route path="/add" element={<ProtectedRoute><Layout><AddSplit /></Layout></ProtectedRoute>} />
+      <Route path="/splits" element={<ProtectedRoute><Layout><Splits /></Layout></ProtectedRoute>} />
+      <Route path="/splits/:id" element={<ProtectedRoute><Layout><SplitDetail /></Layout></ProtectedRoute>} />
+      <Route path="/balances" element={<ProtectedRoute><Layout><Balances /></Layout></ProtectedRoute>} />
+      <Route path="/logs" element={<ProtectedRoute><Layout><Logs /></Layout></ProtectedRoute>} />
     </Routes>
   );
 };
@@ -75,17 +46,24 @@ function App() {
   return (
     <ConfigProvider
       theme={{
+        algorithm: theme.darkAlgorithm,
         token: {
-          colorPrimary: '#1890ff',
-          borderRadius: 6,
+          colorPrimary: '#00d4aa',
+          colorBgContainer: 'rgba(255, 255, 255, 0.06)',
+          colorBgElevated: '#1f1f38',
+          colorBorder: 'rgba(255, 255, 255, 0.1)',
+          colorText: '#ffffff',
+          colorTextSecondary: 'rgba(255, 255, 255, 0.6)',
+          borderRadius: 12,
+          fontFamily: "'Inter', sans-serif",
         },
       }}
     >
-      <Router>
-        <AuthProvider>
+      <AuthProvider>
+        <BrowserRouter>
           <AppRoutes />
-        </AuthProvider>
-      </Router>
+        </BrowserRouter>
+      </AuthProvider>
     </ConfigProvider>
   );
 }

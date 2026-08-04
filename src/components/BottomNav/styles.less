@@ -1,0 +1,73 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px 20px 0 0;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  z-index: 1000;
+  max-width: 480px;
+  margin: 0 auto;
+  border-bottom: none;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  position: relative;
+  transition: all 0.3s ease;
+  flex: 1;
+
+  .anticon {
+    font-size: 22px;
+    margin-bottom: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  &.active {
+    color: var(--primary-color);
+    
+    .anticon {
+      transform: translateY(-2px);
+    }
+  }
+
+  &.special {
+    .add-btn {
+      font-size: 48px;
+      color: var(--primary-color);
+      background: var(--bg-deep);
+      border-radius: 50%;
+      padding: 4px;
+      box-shadow: 0 4px 12px rgba(0, 212, 170, 0.4);
+      transform: translateY(-15px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    &:hover .add-btn, &.active .add-btn {
+      transform: translateY(-18px) scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 212, 170, 0.6);
+    }
+  }
+
+  .active-dot {
+    width: 4px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+    bottom: -6px;
+  }
+}

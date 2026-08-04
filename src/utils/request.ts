@@ -1,38 +1,27 @@
 import { extend } from 'umi-request';
 
+const isProd = import.meta.env.PROD;
+const API_URL = isProd 
+  ? 'https://family-chat-backend-m58u.onrender.com/api' 
+  : 'http://127.0.0.1:5000/api';
+
 const request = extend({
-//   prefix: 'http://localhost:5000/api',
-  prefix: 'https://family-chat-backend-m58u.onrender.com/api',
+  prefix: API_URL,
   timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { 'Content-Type': 'application/json' },
 });
 
-// Request interceptor
 request.interceptors.request.use((url, options) => {
   const token = localStorage.getItem('token');
-  
   if (token) {
-    return {
-      url,
-      options: {
-        ...options,
-        headers: {
-          ...options.headers,
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    };
+    return { url, options: { ...options, headers: { ...options.headers, Authorization: `Bearer ${token}` } } };
   }
-  
   return { url, options };
 });
 
-// Response interceptor
 request.interceptors.response.use(async (response) => {
-  if (response.status === 401) {
-    // Token expired or invalid
+  // Don't redirect on 401 for login endpoint — let the login page show the error
+  if (response.status === 401 && !response.url.includes('/auth/login')) {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.location.href = '/login';

@@ -3,27 +3,58 @@ export interface User {
   username: string;
   email: string;
   displayName: string;
-  avatar: string;
+  avatar?: string;
+  userType: 'a' | 'sa';
 }
 
-export interface Message {
+export interface Split {
+  _id: string;
+  description: string;
+  totalAmount: number;
+  category: string;
+  paidBy: { userId: string; amount: number; displayName?: string }[];
+  splitAmong: { userId: string; share: number; displayName?: string }[];
+  settlements: Settlement[];
+  createdBy: string;
+  createdByName?: string;
+  createdAt: string;
+  updatedAt: string;
+  status: 'active' | 'settled';
+  splitType: 'equal' | 'custom';
+}
+
+export interface Settlement {
   id: string;
-  senderId: string;
-  receiverId: string;
-  content: string;
-  timestamp: string;
+  fromUserId: string;
+  fromDisplayName?: string;
+  toUserId: string;
+  toDisplayName?: string;
+  amount: number;
+  status: 'pending' | 'paid';
+  paidAt: string | null;
+  note: string;
+  markedBy: string | null;
+  markedAt: string | null;
 }
 
-export interface LoginResponse {
-  token: string;
-  user: User;
+export interface Balance {
+  fromUser: string;
+  toUser: string;
+  amount: number;
 }
 
-export interface AuthContextType {
-  currentUser: User | null;
-  token: string | null;
-  login: (username: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string, displayName?: string) => Promise<void>;
-  logout: () => void;
-  loading: boolean;
+export interface Category {
+  _id: string;
+  name: string;
+  icon: string;
+}
+
+export interface LogEntry {
+  _id: string;
+  userId?: string;
+  action?: string;
+  details?: string;
+  ip?: string;
+  time: string;
+  [key: string]: any;
 }

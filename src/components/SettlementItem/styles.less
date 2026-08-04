@@ -1,0 +1,70 @@
+.settlement-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid transparent;
+
+  &.pending {
+    border-color: rgba(255, 107, 107, 0.2);
+  }
+
+  &.paid {
+    border-color: rgba(0, 212, 170, 0.2);
+    opacity: 0.8;
+  }
+
+  .settlement-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .users-flow.text-sentence {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+      font-size: 14px;
+      color: var(--text-secondary);
+
+      strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .amount-badge {
+        background: rgba(0, 212, 170, 0.15);
+        color: var(--primary-color);
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 13px;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .settlement-actions {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .note-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-style: italic;
+      flex: 1;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
