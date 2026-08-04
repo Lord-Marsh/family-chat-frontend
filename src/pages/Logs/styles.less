@@ -1,0 +1,85 @@
+.logs-page {
+  .logs-container {
+    padding: 16px;
+
+    .ant-tabs-nav {
+      margin-bottom: 16px;
+      
+      .ant-tabs-tab {
+        color: var(--text-secondary);
+        
+        &.ant-tabs-tab-active {
+          .ant-tabs-tab-btn {
+            color: var(--primary-color);
+          }
+        }
+      }
+      .ant-tabs-ink-bar {
+        background: var(--primary-color);
+      }
+    }
+
+    .filters {
+      margin-bottom: 16px;
+      
+      .ant-picker {
+        background: rgba(255,255,255,0.05);
+        border-color: rgba(255,255,255,0.1);
+        
+        input {
+          color: white;
+        }
+        
+        .ant-picker-separator {
+          color: var(--text-secondary);
+        }
+        .ant-picker-suffix {
+          color: var(--text-secondary);
+        }
+      }
+    }
+
+    .table-wrapper {
+      .ant-table-wrapper {
+        .ant-table {
+          background: transparent;
+          color: var(--text-primary);
+          
+          .ant-table-thead > tr > th {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+          }
+          
+          .ant-table-tbody > tr > td {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+          }
+          
+          .ant-table-tbody > tr:hover > td {
+            background: rgba(255,255,255,0.02);
+          }
+        }
+
+        .ant-pagination {
+          .ant-pagination-item {
+            background: transparent;
+            border-color: rgba(255,255,255,0.1);
+            a { color: var(--text-secondary); }
+            
+            &-active {
+              border-color: var(--primary-color);
+              a { color: var(--primary-color); }
+            }
+          }
+          
+          .ant-pagination-prev .ant-pagination-item-link,
+          .ant-pagination-next .ant-pagination-item-link {
+            background: transparent;
+            border-color: rgba(255,255,255,0.1);
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
