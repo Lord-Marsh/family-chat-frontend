@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AutoContext';
 import { getBalancesSummary, getRecentSplits } from './service';
 import Header from '../../components/Header';
 import SplitCard from '../../components/SplitCard';
-import { Split } from '../../types';
+import type { Split } from '../../types';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useSocket } from '../../hooks/useSocket';

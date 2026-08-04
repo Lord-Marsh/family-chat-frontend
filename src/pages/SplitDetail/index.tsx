@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Spin, Button, Modal, Input, message, Tag, Popconfirm } from 'antd';
 import { LoadingOutlined, ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getSplit, settleSplit, revertSettlement, deleteSplit } from './service';
-import { Split } from '../../types';
+import type { Split } from '../../types';
 import SettlementItem from '../../components/SettlementItem';
 import { useSocket } from '../../hooks/useSocket';
 import { useAuth } from '../../contexts/AutoContext';

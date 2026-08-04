@@ -4,7 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import Header from '../../components/Header';
 import SplitCard from '../../components/SplitCard';
 import { getSplits } from './service';
-import { Split } from '../../types';
+import type { Split } from '../../types';
 import { useSocket } from '../../hooks/useSocket';
 import './styles.less';
 

@@ -1,6 +1,6 @@
-import { Settlement } from '../../types';
-import { Button, Tag, Avatar } from 'antd';
-import { ArrowRightOutlined, CheckCircleFilled } from '@ant-design/icons';
+import type { Settlement } from '../../types';
+import { Button, Tag } from 'antd';
+import { CheckCircleFilled } from '@ant-design/icons';
 import { useAuth } from '../../contexts/AutoContext';
 import { useState, useEffect } from 'react';
 import './styles.less';

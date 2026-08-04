@@ -1,7 +1,7 @@
 import { Avatar, Dropdown } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { useAuth } from '../../contexts/AutoContext';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './styles.less';
 
 interface HeaderProps {
@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   const items = [
     {

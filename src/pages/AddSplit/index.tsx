@@ -3,7 +3,7 @@ import { Form, Input, InputNumber, Select, Radio, Button, Checkbox, message, Ava
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import { getCategories, getUsers, createSplit } from './service';
-import { Category, User } from '../../types';
+import type { Category, User } from '../../types';
 import './styles.less';
 
 const AddSplit = () => {

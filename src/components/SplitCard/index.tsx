@@ -1,4 +1,4 @@
-import { Split } from '../../types';
+import type { Split } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { Progress, Tag } from 'antd';
 import './styles.less';
