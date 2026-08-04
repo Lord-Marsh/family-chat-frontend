@@ -1,7 +1,7 @@
 import { Avatar, Dropdown } from 'antd';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { useAuth } from '../../contexts/AutoContext';
-import { Link } from 'react-router-dom';
+
 import './styles.less';
 
 interface HeaderProps {
