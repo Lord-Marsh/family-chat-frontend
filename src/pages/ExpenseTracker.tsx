@@ -55,7 +55,7 @@ const ExpenseTracker = () => {
     try {
       setLoading(true);
       setErrorMsg(null);
-      const res = await request.get('/api/analytics');
+      const res = await request.get('/analytics');
       setData(res);
     } catch (err: any) {
       const msg = err?.data?.message || err?.message || 'Failed to fetch analytics';
