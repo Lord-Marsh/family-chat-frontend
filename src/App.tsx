@@ -8,6 +8,7 @@ import AddSplit from './pages/AddSplit';
 import Splits from './pages/Splits';
 import SplitDetail from './pages/SplitDetail';
 import Balances from './pages/Balances';
+import ExpenseTracker from './pages/ExpenseTracker';
 import Logs from './pages/Logs';
 import './App.css';
 
@@ -37,6 +38,7 @@ const AppRoutes = () => {
       <Route path="/splits" element={<ProtectedRoute><Layout><Splits /></Layout></ProtectedRoute>} />
       <Route path="/splits/:id" element={<ProtectedRoute><Layout><SplitDetail /></Layout></ProtectedRoute>} />
       <Route path="/balances" element={<ProtectedRoute><Layout><Balances /></Layout></ProtectedRoute>} />
+      <Route path="/tracker" element={<ProtectedRoute><Layout><ExpenseTracker /></Layout></ProtectedRoute>} />
       <Route path="/logs" element={<ProtectedRoute><Layout><Logs /></Layout></ProtectedRoute>} />
     </Routes>
   );

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { HomeOutlined, PlusCircleFilled, UnorderedListOutlined, WalletOutlined, SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, PlusCircleFilled, UnorderedListOutlined, WalletOutlined, SettingOutlined, LineChartOutlined } from '@ant-design/icons';
 import { useAuth } from '../../contexts/AutoContext';
 import './styles.less';
 
@@ -12,6 +12,7 @@ const BottomNav = () => {
     { path: '/splits', icon: <UnorderedListOutlined />, label: 'Splits' },
     { path: '/add', icon: <PlusCircleFilled className="add-btn" />, label: 'Add', special: true },
     { path: '/balances', icon: <WalletOutlined />, label: 'Balances' },
+    { path: '/tracker', icon: <LineChartOutlined />, label: 'Tracker' },
   ];
 
   if (user?.userType === 'sa') {

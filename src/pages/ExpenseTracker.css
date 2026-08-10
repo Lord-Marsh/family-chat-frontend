@@ -1,0 +1,69 @@
+.expense-tracker .stat-card {
+  padding: 16px;
+}
+
+.expense-tracker .stat-title {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.expense-tracker .section-title {
+  color: #fff !important;
+  margin-top: 0;
+  margin-bottom: 16px !important;
+  font-weight: 600;
+}
+
+.expense-tracker .text-danger {
+  color: #ef4444 !important;
+}
+
+.expense-tracker .custom-tabs .ant-tabs-nav::before {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.expense-tracker .custom-tabs .ant-tabs-tab {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.expense-tracker .custom-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #00d4aa !important;
+  font-weight: 500;
+}
+
+.expense-tracker .custom-tabs .ant-tabs-ink-bar {
+  background: #00d4aa;
+}
+
+.expense-tracker .expense-list-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 12px 0 !important;
+}
+
+.expense-tracker .expense-list-item:last-child {
+  border-bottom: none !important;
+}
+
+.expense-tracker .expense-amount-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.expense-tracker .amount-tag {
+  margin-inline-end: 0;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.expense-tracker .empty-state {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+}
