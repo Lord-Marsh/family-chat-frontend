@@ -62,10 +62,18 @@ const ExpenseTracker = () => {
     }
   };
 
-  if (loading || !data) {
+  if (loading) {
     return (
-      <div className="page-container flex-center">
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100%' }}>
         <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100%', color: 'rgba(255,255,255,0.5)' }}>
+        <p>No analytics data available or an error occurred.</p>
       </div>
     );
   }
