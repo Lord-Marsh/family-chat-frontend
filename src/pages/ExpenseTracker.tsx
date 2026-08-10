@@ -45,6 +45,7 @@ const COLORS = ['#00d4aa', '#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#ef4444'
 const ExpenseTracker = () => {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     fetchAnalytics();
@@ -53,10 +54,13 @@ const ExpenseTracker = () => {
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
+      setErrorMsg(null);
       const res = await request.get('/api/analytics');
       setData(res);
     } catch (err: any) {
-      message.error(err?.data?.message || 'Failed to fetch analytics');
+      const msg = err?.data?.message || err?.message || 'Failed to fetch analytics';
+      message.error(msg);
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -70,10 +74,13 @@ const ExpenseTracker = () => {
     );
   }
 
-  if (!data) {
+  if (errorMsg || !data) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100%', color: 'rgba(255,255,255,0.5)' }}>
-        <p>No analytics data available or an error occurred.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100%', color: 'rgba(255,255,255,0.8)' }}>
+        <p style={{ fontSize: '18px', marginBottom: '8px' }}>No analytics data available or an error occurred.</p>
+        <p style={{ color: '#ef4444', background: 'rgba(239, 68, 68, 0.1)', padding: '8px 16px', borderRadius: '8px' }}>
+          Error Details: {errorMsg || 'Unknown Error'}
+        </p>
       </div>
     );
   }
