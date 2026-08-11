@@ -83,14 +83,20 @@ const Dashboard = () => {
 
   return (
     <div className="page-container dashboard">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Header title={`${getGreeting()}, ${user?.displayName?.split(' ')[0]}!`} />
+      <Header title={`${getGreeting()}, ${user?.displayName?.split(' ')[0]}!`} />
+      
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '-16px', marginBottom: '24px', padding: '0 16px' }}>
         <Button 
-          type="dashed" 
+          type="default" 
           icon={<SecurityScanOutlined />} 
           onClick={handleSetupFingerprint} 
           loading={registering}
-          style={{ borderColor: '#00d4aa', color: '#00d4aa', background: 'transparent' }}
+          style={{ 
+            borderColor: 'rgba(0, 212, 170, 0.3)', 
+            color: '#00d4aa', 
+            background: 'rgba(0, 212, 170, 0.05)',
+            borderRadius: '8px'
+          }}
         >
           Setup Fingerprint
         </Button>
