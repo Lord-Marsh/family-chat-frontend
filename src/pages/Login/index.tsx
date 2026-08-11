@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Form, Input, Button, message, Divider } from 'antd';
-import { UserOutlined, LockOutlined, FingerprintOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, SecurityScanOutlined } from '@ant-design/icons';
 import { login as loginService, generateWebauthnLogin, verifyWebauthnLogin } from './service';
 import { useAuth } from '../../contexts/AutoContext';
 import { startAuthentication } from '@simplewebauthn/browser';
@@ -107,7 +107,7 @@ const Login = () => {
           
           <Button 
             type="default" 
-            icon={<FingerprintOutlined />} 
+            icon={<SecurityScanOutlined />} 
             onClick={handleBiometricLogin} 
             loading={biometricLoading}
             block

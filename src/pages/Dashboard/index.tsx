@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import SplitCard from '../../components/SplitCard';
 import type { Split } from '../../types';
 import { Spin, Button, message } from 'antd';
-import { LoadingOutlined, FingerprintOutlined } from '@ant-design/icons';
+import { LoadingOutlined, SecurityScanOutlined } from '@ant-design/icons';
 import { useSocket } from '../../hooks/useSocket';
 import { startRegistration } from '@simplewebauthn/browser';
 import './styles.less';
@@ -87,7 +87,7 @@ const Dashboard = () => {
         <Header title={`${getGreeting()}, ${user?.displayName?.split(' ')[0]}!`} />
         <Button 
           type="dashed" 
-          icon={<FingerprintOutlined />} 
+          icon={<SecurityScanOutlined />} 
           onClick={handleSetupFingerprint} 
           loading={registering}
           style={{ borderColor: '#00d4aa', color: '#00d4aa', background: 'transparent' }}
