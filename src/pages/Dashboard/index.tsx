@@ -85,7 +85,7 @@ const Dashboard = () => {
     <div className="page-container dashboard">
       <Header title={`${getGreeting()}, ${user?.displayName?.split(' ')[0]}!`} />
       
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '-16px', marginBottom: '24px', padding: '0 16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '24px', padding: '0 16px', position: 'relative', zIndex: 10 }}>
         <Button 
           type="default" 
           icon={<SecurityScanOutlined />} 
