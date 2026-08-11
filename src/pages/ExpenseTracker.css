@@ -10,6 +10,23 @@
   display: block;
 }
 
+.expense-tracker .stat-card .ant-statistic-content {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.expense-tracker .stat-card .ant-statistic-content-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: clamp(16px, 4vw, 24px);
+}
+
+.expense-tracker .stat-card .ant-statistic-content-prefix {
+  margin-right: 4px;
+}
+
 .expense-tracker .section-title {
   color: #fff !important;
   margin-top: 0;
