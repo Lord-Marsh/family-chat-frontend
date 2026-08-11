@@ -4,10 +4,10 @@ export const login = async (data: any) => {
   return request.post('/auth/login', { data });
 };
 
-export const generateWebauthnLogin = async (username: string) => {
-  return request.post('/webauthn/login/generate', { data: { username } });
+export const generateWebauthnLogin = async () => {
+  return request.post('/webauthn/login/generate', { data: {} });
 };
 
-export const verifyWebauthnLogin = async (username: string, credential: any) => {
-  return request.post('/webauthn/login/verify', { data: { username, credential } });
+export const verifyWebauthnLogin = async (credential: any) => {
+  return request.post('/webauthn/login/verify', { data: { credential } });
 };

@@ -29,22 +29,16 @@ const Login = () => {
   };
 
   const handleBiometricLogin = async () => {
-    const username = form.getFieldValue('username');
-    if (!username) {
-      message.warning('Please enter your username first to use Fingerprint login.');
-      return;
-    }
-
     setBiometricLoading(true);
     try {
       // 1. Get authentication options from server
-      const options = await generateWebauthnLogin(username);
+      const options = await generateWebauthnLogin();
       
       // 2. Pass options to browser authenticator
       const authResp = await startAuthentication(options);
       
       // 3. Verify response with server
-      const verifyRes = await verifyWebauthnLogin(username, authResp);
+      const verifyRes = await verifyWebauthnLogin(authResp);
       
       if (verifyRes && verifyRes.token && verifyRes.user) {
         message.success('Biometric login successful!');
@@ -72,6 +66,20 @@ const Login = () => {
           <p className="tagline">Split smart. Stay even.</p>
         </div>
 
+        <div className="biometric-login-section">
+          <div 
+            className={`fingerprint-scanner ${biometricLoading ? 'scanning' : ''}`}
+            onClick={!biometricLoading ? handleBiometricLogin : undefined}
+          >
+            <div className="scanner-ripple"></div>
+            <SecurityScanOutlined className="fingerprint-icon" />
+            <div className="scanner-line"></div>
+          </div>
+          <p className="biometric-hint">Tap to unlock with Passkey</p>
+        </div>
+
+        <Divider style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)', margin: '24px 0' }}>OR USE PASSWORD</Divider>
+
         <Form
           form={form}
           name="login_form"
@@ -97,29 +105,11 @@ const Login = () => {
             />
           </Form.Item>
 
-          <Form.Item>
+          <Form.Item style={{ marginBottom: 0 }}>
             <Button type="primary" htmlType="submit" className="login-form-button" loading={loading} block>
-              Log in
+              Log in with Password
             </Button>
           </Form.Item>
-          
-          <Divider style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>OR</Divider>
-          
-          <Button 
-            type="default" 
-            icon={<SecurityScanOutlined />} 
-            onClick={handleBiometricLogin} 
-            loading={biometricLoading}
-            block
-            style={{ 
-              background: 'transparent', 
-              color: '#00d4aa', 
-              borderColor: '#00d4aa',
-              marginTop: '-10px'
-            }}
-          >
-            Login with Fingerprint
-          </Button>
         </Form>
       </div>
     </div>
