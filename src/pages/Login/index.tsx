@@ -66,20 +66,6 @@ const Login = () => {
           <p className="tagline">Split smart. Stay even.</p>
         </div>
 
-        <div className="biometric-login-section">
-          <div 
-            className={`fingerprint-scanner ${biometricLoading ? 'scanning' : ''}`}
-            onClick={!biometricLoading ? handleBiometricLogin : undefined}
-          >
-            <div className="scanner-ripple"></div>
-            <SecurityScanOutlined className="fingerprint-icon" />
-            <div className="scanner-line"></div>
-          </div>
-          <p className="biometric-hint">Tap to unlock with Passkey</p>
-        </div>
-
-        <Divider style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)', margin: '24px 0' }}>OR USE PASSWORD</Divider>
-
         <Form
           form={form}
           name="login_form"
@@ -111,6 +97,20 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
+
+        <Divider style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)', margin: '24px 0' }}>OR</Divider>
+
+        <div className="biometric-login-section">
+          <div 
+            className={`fingerprint-scanner ${biometricLoading ? 'scanning' : ''}`}
+            onClick={!biometricLoading ? handleBiometricLogin : undefined}
+          >
+            <div className="scanner-ripple"></div>
+            <SecurityScanOutlined className="fingerprint-icon" />
+            <div className="scanner-line"></div>
+          </div>
+          <p className="biometric-hint">Tap to unlock with Passkey</p>
+        </div>
       </div>
     </div>
   );
