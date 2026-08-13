@@ -113,11 +113,11 @@ const Dashboard = () => {
         <div className="summary-cards">
           <div className="summary-card owe glass-card">
             <div className="label">You Need to Pay</div>
-            <div className="amount">₹{youOweTotal}</div>
+            <div className="amount">₹{Number(youOweTotal).toFixed(2)}</div>
           </div>
           <div className="summary-card owed glass-card">
             <div className="label">You Will Receive</div>
-            <div className="amount">₹{owedToYouTotal}</div>
+            <div className="amount">₹{Number(owedToYouTotal).toFixed(2)}</div>
           </div>
         </div>
       </div>

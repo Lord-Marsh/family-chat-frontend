@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Spin, Button, Modal, Input, message, Tag, Popconfirm } from 'antd';
-import { LoadingOutlined, ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons';
+import { LoadingOutlined, ArrowLeftOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { getSplit, settleSplit, revertSettlement, deleteSplit } from './service';
 import type { Split } from '../../types';
 import SettlementItem from '../../components/SettlementItem';
@@ -104,9 +104,12 @@ const SplitDetail = () => {
       <div className="nav-header">
         <Button type="text" icon={<ArrowLeftOutlined />} onClick={() => navigate(-1)} className="back-btn" />
         {isSA && (
-          <Popconfirm title="Delete this split?" onConfirm={handleDelete} okText="Yes" cancelText="No">
-            <Button type="text" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <Button type="text" icon={<EditOutlined />} onClick={() => navigate(`/edit/${id}`)} style={{ color: '#00d4aa' }} />
+            <Popconfirm title="Delete this split?" onConfirm={handleDelete} okText="Yes" cancelText="No">
+              <Button type="text" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </div>
         )}
       </div>
 
