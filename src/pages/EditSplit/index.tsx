@@ -29,7 +29,6 @@ const EditSplit = () => {
         ]);
         setCategories(catRes);
         setUsers(usrRes);
-        setSplit(splitRes);
         setSplitType(splitRes.splitType);
 
         // Pre-fill form
