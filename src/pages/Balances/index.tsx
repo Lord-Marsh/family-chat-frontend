@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Spin, Button, message } from 'antd';
+import { LoadingOutlined, WhatsAppOutlined } from '@ant-design/icons';
 import Header from '../../components/Header';
 import BalanceCard from '../../components/BalanceCard';
 import { getBalancesSummary } from '../Dashboard/service';
-import { getBalances } from './service';
+import { getBalances, remindAllWhatsapp } from './service';
 import { useSocket } from '../../hooks/useSocket';
 import { useAuth } from '../../contexts/AutoContext';
 import './styles.less';
@@ -14,6 +14,7 @@ const Balances = () => {
   const [balances, setBalances] = useState<any[]>([]);
   const [summary, setSummary] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [reminding, setReminding] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -43,12 +44,38 @@ const Balances = () => {
     return <div className="loading-center"><Spin indicator={<LoadingOutlined style={{ fontSize: 40 }} spin />} /></div>;
   }
 
+  const handleRemindAll = async () => {
+    setReminding(true);
+    try {
+      const res = await remindAllWhatsapp();
+      message.success(res.message || 'Reminders sent successfully');
+    } catch (error: any) {
+      message.error(error.response?.data?.message || 'Failed to send reminders');
+    } finally {
+      setReminding(false);
+    }
+  };
+
   const youOweTotal = summary?.youOwe?.reduce((acc: number, val: any) => acc + val.amount, 0) || 0;
   const owedToYouTotal = summary?.owedToYou?.reduce((acc: number, val: any) => acc + val.amount, 0) || 0;
 
   return (
     <div className="page-container balances-page">
       <Header title="Balances" />
+
+      {user?.userType === 'sa' && (
+        <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'flex-end' }}>
+          <Button 
+            type="primary" 
+            icon={<WhatsAppOutlined />} 
+            onClick={handleRemindAll} 
+            loading={reminding}
+            style={{ backgroundColor: '#25D366', borderColor: '#25D366' }}
+          >
+            Remind All (WhatsApp)
+          </Button>
+        </div>
+      )}
 
       <div className="summary-cards animate-fade-in-up stagger-1">
         <div className="summary-card owe glass-card">
@@ -72,7 +99,6 @@ const Balances = () => {
               userB={{ id: b.toUser?.id, name: b.toUser?.displayName || 'Unknown', upiId: b.toUser?.upiId }}
               netAmount={b.amount} // If it's positive, fromUser owes toUser
               details={b.details}
-              currentUser={user}
             />
           ))
         ) : (
