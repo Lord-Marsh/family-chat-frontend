@@ -73,6 +73,16 @@ const SplitDetail = () => {
     }
   };
 
+  const handleQuickSettle = async (settlementId: string) => {
+    try {
+      await settleSplit(id!, { settlementId, note: 'Paid via GPay' });
+      message.success('Marked as paid!');
+      fetchSplit();
+    } catch (error) {
+      message.error('Failed to mark as paid');
+    }
+  };
+
   const handleRevert = async (settlementId: string) => {
     try {
       await revertSettlement(id!, settlementId);
@@ -156,7 +166,8 @@ const SplitDetail = () => {
                 key={s.id} 
                 settlement={s} 
                 onMarkPaid={handleMarkPaidClick} 
-                onRevert={handleRevert} 
+                onRevert={handleRevert}
+                onQuickSettle={handleQuickSettle}
               />
             ))
           ) : (
