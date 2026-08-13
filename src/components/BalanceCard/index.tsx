@@ -21,7 +21,7 @@ interface BalanceCardProps {
   currentUser?: any;
 }
 
-const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: BalanceCardProps) => {
+const BalanceCard = ({ userA, userB, netAmount, details = [] }: BalanceCardProps) => {
   const isAOwesB = netAmount > 0;
   const amount = Math.abs(netAmount);
   
