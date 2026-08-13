@@ -1,5 +1,6 @@
 import { Avatar, Collapse } from 'antd';
-import { ArrowRightOutlined, ArrowLeftOutlined, CaretRightOutlined, GoogleOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
+import UpiPayButton from '../UpiPayButton';
 import './styles.less';
 
 const { Panel } = Collapse;
@@ -54,11 +55,6 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
         // Build the math equation relative to the final result
         const mathParts: string[] = [];
         details.forEach((d, i) => {
-          // If netAmount > 0, main flow is A owes B.
-          // If d.fromUserId === userA.id, this detail is A owes B (Positive for main flow)
-          // If netAmount < 0, main flow is B owes A.
-          // If d.fromUserId === userB.id, this detail is B owes A (Positive for main flow)
-          
           let isPositiveForMainFlow = false;
           if (netAmount > 0) {
             isPositiveForMainFlow = (d.fromUserId === userA.id);
@@ -67,7 +63,6 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
           }
 
           if (i === 0) {
-            // First item just gets its amount, optionally with minus if it opposes main flow
             mathParts.push(`${isPositiveForMainFlow ? '' : '-'}₹${d.amount}`);
           } else {
             mathParts.push(`${isPositiveForMainFlow ? '+' : '-'} ₹${d.amount}`);
@@ -110,7 +105,7 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
       })()}
 
       {(() => {
-        // Only show GPay button if the current user owes the other user, and the other user has a upiId
+        // Only show UPI Pay button if the current user owes the other user, and the other user has a upiId
         let owesToUser = null;
         if (currentUser) {
           if (isAOwesB && currentUser.id === userA.id) {
@@ -121,35 +116,14 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
         }
 
         if (owesToUser && owesToUser.upiId) {
-          // upi://pay?pa=UPI_ID&pn=NAME&am=AMOUNT&cu=INR
-          const gpayLink = `upi://pay?pa=${encodeURIComponent(owesToUser.upiId)}&pn=${encodeURIComponent(owesToUser.name)}&tr=SP${Date.now()}&tn=SplitPay%20Settlement&am=${amount}&cu=INR`;
-          
           return (
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
-              <a 
-                href={gpayLink} 
-                target="_blank" 
-                rel="noreferrer"
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '8px', 
-                  backgroundColor: '#ffffff', 
-                  color: '#3c4043', 
-                  padding: '10px 24px', 
-                  borderRadius: '24px', 
-                  fontWeight: 600, 
-                  fontSize: '14px', 
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
-                  transition: 'transform 0.2s ease',
-                }}
-                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                <GoogleOutlined style={{ color: '#EA4335', fontSize: '18px' }} />
-                Pay via GPay
-              </a>
+              <UpiPayButton
+                upiId={owesToUser.upiId}
+                payeeName={owesToUser.name}
+                amount={amount}
+                size="large"
+              />
             </div>
           );
         }
