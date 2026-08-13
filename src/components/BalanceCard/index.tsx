@@ -1,5 +1,5 @@
 import { Avatar, Collapse } from 'antd';
-import { ArrowRightOutlined, ArrowLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowLeftOutlined, CaretRightOutlined, GoogleOutlined } from '@ant-design/icons';
 import './styles.less';
 
 const { Panel } = Collapse;
@@ -147,7 +147,7 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
                 onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                 onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Pay_Logo_%282020%29.svg/1024px-Google_Pay_Logo_%282020%29.svg.png" alt="GPay" style={{ height: '20px' }} />
+                <GoogleOutlined style={{ color: '#EA4335', fontSize: '18px' }} />
                 Pay via GPay
               </a>
             </div>
