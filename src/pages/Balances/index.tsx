@@ -6,9 +6,11 @@ import BalanceCard from '../../components/BalanceCard';
 import { getBalancesSummary } from '../Dashboard/service';
 import { getBalances } from './service';
 import { useSocket } from '../../hooks/useSocket';
+import { useAuth } from '../../contexts/AutoContext';
 import './styles.less';
 
 const Balances = () => {
+  const { user } = useAuth();
   const [balances, setBalances] = useState<any[]>([]);
   const [summary, setSummary] = useState<any>(null);
   const [loading, setLoading] = useState(true);
