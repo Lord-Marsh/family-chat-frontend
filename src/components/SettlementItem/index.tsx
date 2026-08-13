@@ -5,55 +5,21 @@ import { useAuth } from '../../contexts/AutoContext';
 import { useState, useEffect } from 'react';
 import './styles.less';
 
-import { Modal } from 'antd';
-import confetti from 'canvas-confetti';
-
 interface SettlementItemProps {
   settlement: Settlement;
   onMarkPaid: (id: string) => void;
   onRevert: (id: string) => void;
-  onQuickSettle?: (id: string) => Promise<void>;
 }
 
-const SettlementItem = ({ settlement, onMarkPaid, onRevert, onQuickSettle }: SettlementItemProps) => {
+const SettlementItem = ({ settlement, onMarkPaid, onRevert }: SettlementItemProps) => {
   const { user } = useAuth();
   const [now, setNow] = useState(Date.now());
-  const [pendingGPayCheck, setPendingGPayCheck] = useState(false);
   
   useEffect(() => {
     // Re-evaluate the timer every 30 seconds to hide the revert button automatically
     const interval = setInterval(() => setNow(Date.now()), 30000);
     return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && pendingGPayCheck) {
-        setPendingGPayCheck(false);
-        Modal.confirm({
-          title: 'Payment Complete?',
-          content: 'Did you complete the payment on GPay?',
-          okText: 'Yes, Mark as Paid',
-          cancelText: 'Not yet',
-          className: 'dark-modal',
-          onOk: async () => {
-            if (onQuickSettle) {
-              await onQuickSettle(settlement.id);
-              confetti({
-                particleCount: 150,
-                spread: 80,
-                origin: { y: 0.6 }
-              });
-            } else {
-              onMarkPaid(settlement.id);
-            }
-          }
-        });
-      }
-    };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [pendingGPayCheck, settlement.id, onMarkPaid, onQuickSettle]);
   
   const isPending = settlement.status === 'pending';
   const canMarkPaid = isPending && user?.id === settlement.fromUserId;
@@ -86,10 +52,9 @@ const SettlementItem = ({ settlement, onMarkPaid, onRevert, onQuickSettle }: Set
           <div className="action-buttons">
             {canMarkPaid && settlement.toUserUpiId && (
               <a 
-                href={`upi://pay?pa=${encodeURIComponent(settlement.toUserUpiId)}&pn=${encodeURIComponent(settlement.toDisplayName || '')}&am=${Math.round(settlement.amount)}&cu=INR`}
+                href={`upi://pay?pa=${encodeURIComponent(settlement.toUserUpiId)}&pn=${encodeURIComponent(settlement.toDisplayName || '')}&tn=SplitPay%20Settlement&am=${Math.round(settlement.amount)}&cu=INR`}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => setPendingGPayCheck(true)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',

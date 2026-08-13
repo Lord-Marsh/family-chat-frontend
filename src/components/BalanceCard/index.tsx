@@ -122,7 +122,7 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
 
         if (owesToUser && owesToUser.upiId) {
           // upi://pay?pa=UPI_ID&pn=NAME&am=AMOUNT&cu=INR
-          const gpayLink = `upi://pay?pa=${encodeURIComponent(owesToUser.upiId)}&pn=${encodeURIComponent(owesToUser.name)}&am=${amount}&cu=INR`;
+          const gpayLink = `upi://pay?pa=${encodeURIComponent(owesToUser.upiId)}&pn=${encodeURIComponent(owesToUser.name)}&tn=SplitPay%20Settlement&am=${amount}&cu=INR`;
           
           return (
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
