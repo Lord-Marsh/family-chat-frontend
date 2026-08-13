@@ -19,7 +19,7 @@ const Login = () => {
       if (res && res.token && res.user) {
         message.success('Welcome to SplitPay!');
         login(res.token, res.user);
-        window.location.href = '/';
+        window.location.href = '/balances';
       }
     } catch (error: any) {
       message.error(error?.data?.message || 'Login failed. Please check credentials.');
@@ -43,7 +43,7 @@ const Login = () => {
       if (verifyRes && verifyRes.token && verifyRes.user) {
         message.success('Biometric login successful!');
         login(verifyRes.token, verifyRes.user);
-        window.location.href = '/';
+        window.location.href = '/balances';
       }
     } catch (error: any) {
       console.error(error);
