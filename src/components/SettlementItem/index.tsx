@@ -34,7 +34,7 @@ const SettlementItem = ({ settlement, onMarkPaid, onRevert }: SettlementItemProp
       <div className="settlement-main">
         <div className="users-flow text-sentence">
            <strong>{settlement.fromDisplayName}</strong> should pay <strong>{settlement.toDisplayName}</strong>
-           <span className="amount-badge">₹{settlement.amount}</span>
+           <span className="amount-badge">₹{Math.round(settlement.amount)}</span>
         </div>
 
         <div className="status-action">
