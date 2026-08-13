@@ -52,7 +52,7 @@ const SettlementItem = ({ settlement, onMarkPaid, onRevert }: SettlementItemProp
           <div className="action-buttons">
             {canMarkPaid && settlement.toUserUpiId && (
               <a 
-                href={`upi://pay?pa=${encodeURIComponent(settlement.toUserUpiId)}&pn=${encodeURIComponent(settlement.toDisplayName || '')}&tn=SplitPay%20Settlement&am=${Math.round(settlement.amount)}&cu=INR`}
+                href={`upi://pay?pa=${encodeURIComponent(settlement.toUserUpiId)}&pn=${encodeURIComponent(settlement.toDisplayName || '')}&tr=SP${Date.now()}&tn=SplitPay%20Settlement&am=${Math.round(settlement.amount)}&cu=INR`}
                 target="_blank"
                 rel="noreferrer"
                 style={{
