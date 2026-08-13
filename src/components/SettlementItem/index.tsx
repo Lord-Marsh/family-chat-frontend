@@ -3,7 +3,6 @@ import { Button, Tag } from 'antd';
 import { CheckCircleFilled } from '@ant-design/icons';
 import { useAuth } from '../../contexts/AutoContext';
 import { useState, useEffect } from 'react';
-import UpiPayButton from '../UpiPayButton';
 import './styles.less';
 
 interface SettlementItemProps {
@@ -51,14 +50,6 @@ const SettlementItem = ({ settlement, onMarkPaid, onRevert }: SettlementItemProp
         <div className="settlement-actions">
           {settlement.note && <div className="note-text">"{settlement.note}"</div>}
           <div className="action-buttons">
-            {canMarkPaid && settlement.toUserUpiId && (
-              <UpiPayButton
-                upiId={settlement.toUserUpiId}
-                payeeName={settlement.toDisplayName || ''}
-                amount={Math.round(settlement.amount)}
-                size="small"
-              />
-            )}
             {canMarkPaid && (
               <Button type="primary" size="small" onClick={() => onMarkPaid(settlement.id)}>
                 Mark as Paid

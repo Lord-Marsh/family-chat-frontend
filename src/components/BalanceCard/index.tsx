@@ -1,6 +1,5 @@
 import { Avatar, Collapse } from 'antd';
 import { ArrowRightOutlined, ArrowLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
-import UpiPayButton from '../UpiPayButton';
 import './styles.less';
 
 const { Panel } = Collapse;
@@ -26,7 +25,7 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
   const isAOwesB = netAmount > 0;
   const amount = Math.abs(netAmount);
   
-  if (amount === 0) return null; // Or show "Settled up"
+  if (amount === 0) return null;
 
   return (
     <div className="balance-card glass-card">
@@ -52,7 +51,6 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
       </div>
 
       {details.length >= 2 && (() => {
-        // Build the math equation relative to the final result
         const mathParts: string[] = [];
         details.forEach((d, i) => {
           let isPositiveForMainFlow = false;
@@ -102,32 +100,6 @@ const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: Bal
             </Collapse>
           </div>
         );
-      })()}
-
-      {(() => {
-        // Only show UPI Pay button if the current user owes the other user, and the other user has a upiId
-        let owesToUser = null;
-        if (currentUser) {
-          if (isAOwesB && currentUser.id === userA.id) {
-            owesToUser = userB;
-          } else if (!isAOwesB && currentUser.id === userB.id) {
-            owesToUser = userA;
-          }
-        }
-
-        if (owesToUser && owesToUser.upiId) {
-          return (
-            <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
-              <UpiPayButton
-                upiId={owesToUser.upiId}
-                payeeName={owesToUser.name}
-                amount={amount}
-                size="large"
-              />
-            </div>
-          );
-        }
-        return null;
       })()}
     </div>
   );
