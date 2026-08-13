@@ -66,9 +66,10 @@ const Balances = () => {
           balances.map((b, i) => (
             <BalanceCard 
               key={i}
-              userA={{ name: b.fromUser?.displayName || 'Unknown' }}
-              userB={{ name: b.toUser?.displayName || 'Unknown' }}
+              userA={{ id: b.fromUser?.id, name: b.fromUser?.displayName || 'Unknown' }}
+              userB={{ id: b.toUser?.id, name: b.toUser?.displayName || 'Unknown' }}
               netAmount={b.amount} // If it's positive, fromUser owes toUser
+              details={b.details}
             />
           ))
         ) : (
