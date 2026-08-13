@@ -82,7 +82,15 @@ const BalanceCard = ({ userA, userB, netAmount, details = [] }: BalanceCardProps
               defaultActiveKey={['1']}
               expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} style={{ color: 'rgba(255,255,255,0.5)' }} />}
             >
-              <Panel header={<span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '13px' }}>View how this was calculated</span>} key="1">
+              <Panel 
+                header={
+                  <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                    <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '13px' }}>View how this was calculated</span>
+                    <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: '12px', fontWeight: 600 }}>{mathEquation}</span>
+                  </div>
+                } 
+                key="1"
+              >
                 <div className="details-list">
                   {details.map((d, i) => (
                     <div key={i} className="detail-item">
@@ -93,9 +101,6 @@ const BalanceCard = ({ userA, userB, netAmount, details = [] }: BalanceCardProps
                       </div>
                     </div>
                   ))}
-                </div>
-                <div className="math-equation-summary" style={{ marginTop: '12px', textAlign: 'right', color: 'rgba(255,255,255,0.9)', fontSize: '14px', fontWeight: 600, borderTop: '1px dashed rgba(255,255,255,0.2)', paddingTop: '8px' }}>
-                  {mathEquation}
                 </div>
               </Panel>
             </Collapse>
