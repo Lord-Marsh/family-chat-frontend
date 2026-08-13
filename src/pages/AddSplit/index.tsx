@@ -96,7 +96,7 @@ const AddSplit = () => {
       const otherUserId = allValues.paidBySelected.find((id: string) => id !== changedUserId);
       if (otherUserId) {
         const remaining = Math.max(0, allValues.totalAmount - typedAmount);
-        form.setFieldValue(['paidByAmount', otherUserId], Number(remaining.toFixed(2)));
+        form.setFieldValue(['paidByAmount', otherUserId], Math.round(remaining));
       }
     }
   };
@@ -187,7 +187,7 @@ const AddSplit = () => {
 
           {splitType === 'equal' && selectedSplitAmong.length > 0 && totalAmount && (
             <div className="equal-preview">
-              Each pays: <span className="highlight">₹{(totalAmount / selectedSplitAmong.length).toFixed(2)}</span>
+              Each pays: <span className="highlight">₹{Math.round(totalAmount / selectedSplitAmong.length)}</span>
             </div>
           )}
 

@@ -51,11 +51,11 @@ const Balances = () => {
       <div className="summary-cards animate-fade-in-up stagger-1">
         <div className="summary-card owe glass-card">
           <div className="label">You Need to Pay</div>
-          <div className="amount">₹{Number(youOweTotal).toFixed(2)}</div>
+          <div className="amount">₹{Math.round(youOweTotal)}</div>
         </div>
         <div className="summary-card owed glass-card">
           <div className="label">You Will Receive</div>
-          <div className="amount">₹{Number(owedToYouTotal).toFixed(2)}</div>
+          <div className="amount">₹{Math.round(owedToYouTotal)}</div>
         </div>
       </div>
 
@@ -66,10 +66,11 @@ const Balances = () => {
           balances.map((b, i) => (
             <BalanceCard 
               key={i}
-              userA={{ id: b.fromUser?.id, name: b.fromUser?.displayName || 'Unknown' }}
-              userB={{ id: b.toUser?.id, name: b.toUser?.displayName || 'Unknown' }}
+              userA={{ id: b.fromUser?.id, name: b.fromUser?.displayName || 'Unknown', upiId: b.fromUser?.upiId }}
+              userB={{ id: b.toUser?.id, name: b.toUser?.displayName || 'Unknown', upiId: b.toUser?.upiId }}
               netAmount={b.amount} // If it's positive, fromUser owes toUser
               details={b.details}
+              currentUser={user}
             />
           ))
         ) : (

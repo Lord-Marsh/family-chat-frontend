@@ -4,6 +4,7 @@ export interface User {
   email: string;
   displayName: string;
   avatar?: string;
+  upiId?: string;
   userType: 'a' | 'sa';
 }
 
@@ -29,6 +30,7 @@ export interface Settlement {
   fromDisplayName?: string;
   toUserId: string;
   toDisplayName?: string;
+  toUserUpiId?: string;
   amount: number;
   status: 'pending' | 'paid';
   paidAt: string | null;

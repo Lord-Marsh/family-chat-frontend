@@ -111,13 +111,13 @@ const Dashboard = () => {
         </div>
 
         <div className="summary-cards">
-          <div className="summary-card owe glass-card">
+          <div className="summary-card owe glass-card animate-fade-in-up stagger-1">
             <div className="label">You Need to Pay</div>
-            <div className="amount">₹{Number(youOweTotal).toFixed(2)}</div>
+            <div className="amount">₹{Math.round(youOweTotal)}</div>
           </div>
-          <div className="summary-card owed glass-card">
+          <div className="summary-card owed glass-card animate-fade-in-up stagger-2">
             <div className="label">You Will Receive</div>
-            <div className="amount">₹{Number(owedToYouTotal).toFixed(2)}</div>
+            <div className="amount">₹{Math.round(owedToYouTotal)}</div>
           </div>
         </div>
       </div>

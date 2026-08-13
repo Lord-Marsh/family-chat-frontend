@@ -217,7 +217,7 @@ const ExpenseTracker = () => {
                 />
                 <div className="expense-amount-wrapper">
                   <Tag color="error" className="amount-tag">
-                    ₹{item.amount.toFixed(2)}
+                    ₹{Math.round(item.amount)}
                   </Tag>
                   <Text type="secondary" className="block text-right text-xs mt-1">{item.category}</Text>
                 </div>

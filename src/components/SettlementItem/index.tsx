@@ -50,6 +50,33 @@ const SettlementItem = ({ settlement, onMarkPaid, onRevert }: SettlementItemProp
         <div className="settlement-actions">
           {settlement.note && <div className="note-text">"{settlement.note}"</div>}
           <div className="action-buttons">
+            {canMarkPaid && settlement.toUserUpiId && (
+              <a 
+                href={`upi://pay?pa=${encodeURIComponent(settlement.toUserUpiId)}&pn=${encodeURIComponent(settlement.toDisplayName || '')}&am=${Math.round(settlement.amount)}&cu=INR`}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#ffffff',
+                  color: '#3c4043',
+                  padding: '4px 12px',
+                  borderRadius: '16px',
+                  fontWeight: 600,
+                  fontSize: '12px',
+                  textDecoration: 'none',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                  transition: 'transform 0.2s ease',
+                  border: '1px solid #dadce0'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Pay_Logo_%282020%29.svg/1024px-Google_Pay_Logo_%282020%29.svg.png" alt="GPay" style={{ height: '14px' }} />
+                Pay
+              </a>
+            )}
             {canMarkPaid && (
               <Button type="primary" size="small" onClick={() => onMarkPaid(settlement.id)}>
                 Mark as Paid

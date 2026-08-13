@@ -141,7 +141,7 @@ const SplitDetail = () => {
           {split.splitAmong.map(s => (
             <div key={s.userId} className="list-row">
               <span>{s.displayName}</span>
-              <span className="value">₹{s.share.toFixed(2)}</span>
+              <span className="value">₹{Math.round(s.share)}</span>
             </div>
           ))}
         </div>

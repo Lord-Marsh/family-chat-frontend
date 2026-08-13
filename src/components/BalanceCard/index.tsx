@@ -14,13 +14,14 @@ interface Detail {
 }
 
 interface BalanceCardProps {
-  userA: { id: string; name: string; avatar?: string };
-  userB: { id: string; name: string; avatar?: string };
+  userA: { id: string; name: string; avatar?: string; upiId?: string };
+  userB: { id: string; name: string; avatar?: string; upiId?: string };
   netAmount: number; // positive = A owes B, negative = B owes A
   details?: Detail[];
+  currentUser?: any;
 }
 
-const BalanceCard = ({ userA, userB, netAmount, details = [] }: BalanceCardProps) => {
+const BalanceCard = ({ userA, userB, netAmount, details = [], currentUser }: BalanceCardProps) => {
   const isAOwesB = netAmount > 0;
   const amount = Math.abs(netAmount);
   
@@ -106,6 +107,53 @@ const BalanceCard = ({ userA, userB, netAmount, details = [] }: BalanceCardProps
             </Collapse>
           </div>
         );
+      })()}
+
+      {(() => {
+        // Only show GPay button if the current user owes the other user, and the other user has a upiId
+        let owesToUser = null;
+        if (currentUser) {
+          if (isAOwesB && currentUser.id === userA.id) {
+            owesToUser = userB;
+          } else if (!isAOwesB && currentUser.id === userB.id) {
+            owesToUser = userA;
+          }
+        }
+
+        if (owesToUser && owesToUser.upiId) {
+          // upi://pay?pa=UPI_ID&pn=NAME&am=AMOUNT&cu=INR
+          const gpayLink = `upi://pay?pa=${encodeURIComponent(owesToUser.upiId)}&pn=${encodeURIComponent(owesToUser.name)}&am=${amount}&cu=INR`;
+          
+          return (
+            <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+              <a 
+                href={gpayLink} 
+                target="_blank" 
+                rel="noreferrer"
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '8px', 
+                  backgroundColor: '#ffffff', 
+                  color: '#3c4043', 
+                  padding: '10px 24px', 
+                  borderRadius: '24px', 
+                  fontWeight: 600, 
+                  fontSize: '14px', 
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                  transition: 'transform 0.2s ease',
+                }}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Pay_Logo_%282020%29.svg/1024px-Google_Pay_Logo_%282020%29.svg.png" alt="GPay" style={{ height: '20px' }} />
+                Pay via GPay
+              </a>
+            </div>
+          );
+        }
+        return null;
       })()}
     </div>
   );
