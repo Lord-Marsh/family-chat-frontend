@@ -3,7 +3,7 @@ import { Form, Input, InputNumber, Select, Radio, Button, Checkbox, message, Ava
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import { getCategories, getUsers, getSplit, updateSplit } from './service';
-import type { Category, User, Split } from '../../types';
+import type { Category, User } from '../../types';
 import '../AddSplit/styles.less';
 
 const EditSplit = () => {
@@ -12,7 +12,6 @@ const EditSplit = () => {
   const [form] = Form.useForm();
   const [categories, setCategories] = useState<Category[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const [split, setSplit] = useState<Split | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [splitType, setSplitType] = useState<'equal'|'custom'>('equal');
